@@ -3,6 +3,6 @@ module com.application.soilapertetgradecalculator {
     requires javafx.fxml;
 
 
-    opens application.soilapertetgradecalculator to javafx.fxml;
-    exports application.soilapertetgradecalculator;
+    opens application to javafx.fxml;
+    exports application;
 }

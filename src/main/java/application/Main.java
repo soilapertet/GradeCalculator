@@ -1,4 +1,4 @@
-package application.soilapertetgradecalculator;
+package application;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         VBox root = loader.load(new FileInputStream
-                ("src/main/java/application/soilapertetgradecalculator/GradeCalculatorView.fxml"));
+                ("src/main/java/application/GradeCalculatorView.fxml"));
 
         Scene scene = new Scene(root, 400, 400);
         primaryStage.setTitle("Soila Pertet's Grade Calculator");
@@ -28,6 +28,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }
