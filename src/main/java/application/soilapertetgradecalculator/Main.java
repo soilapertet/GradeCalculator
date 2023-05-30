@@ -12,6 +12,10 @@ import java.io.IOException;
 
 public class Main extends Application {
     @Override
+    /* Stage primaryStage: Initialise the interface of a JavaFX application
+       FXMLLoader loader: Opens and reads FXML files
+       Scene scene: Represents the physical contents of a JavaFX application
+     */
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         VBox root = loader.load(new FileInputStream
