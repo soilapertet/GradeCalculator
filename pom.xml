@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.application.soilapertetgradecalculator/com.application.soilapertetgradecalculator.HelloApplication
+                                com.application.soilapertetgradecalculator/application.soilapertetgradecalculator.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
