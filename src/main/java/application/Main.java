@@ -18,8 +18,8 @@ public class Main extends Application {
      */
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        VBox root = loader.load(new FileInputStream
-                ("src/main/java/application/GradeCalculatorView.fxml"));
+        VBox root = loader.load(new FileInputStream(
+                "src/main/java/application/GradeCalculatorView.fxml"));
 
         Scene scene = new Scene(root, 400, 400);
         primaryStage.setTitle("Soila Pertet's Grade Calculator");
@@ -27,7 +27,5 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    public static void main(String[] args) {launch(args);}
 }

@@ -3,6 +3,7 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
@@ -15,6 +16,9 @@ public class GradeCalculatorController {
     private TextField projectGradeLabel;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private ChoiceBox<Integer> requiredCodingChallengesChoiceBox;
 
     @FXML
@@ -25,14 +29,12 @@ public class GradeCalculatorController {
         double courseGrade = 0.0;
 
         // Weight for each component
-        double projectGradeWeight = 0.5;
-        double quizGradeWeight = 0.25;
-        double weightOfOneCodingChallenge = 1.25;
+        double projectGradeWeight = 0.5; // Project worth 50%
+        double quizGradeWeight = 0.25; // Quizzes worth 25%
+        double weightOfOneCodingChallenge = 25.0 / 20; // Coding challenges worth 25%; need to complete 20 CCs
 
         // Calculate weighted project grade
-        String projectGradeInput = projectGradeLabel.getText();
-        double projectGrade = Double.parseDouble(projectGradeInput); // Convert from string to double data type
-        double weightedProjectGrade = projectGrade * projectGradeWeight;
+        double weightedProjectGrade = calculateProjectGrade(projectGradeWeight);
         courseGrade += weightedProjectGrade;
         System.out.printf("Weighted Project Grade: %.2f Course Grade: %.2f\n", weightedProjectGrade, courseGrade);
 
@@ -52,6 +54,54 @@ public class GradeCalculatorController {
 
         // Output course grade
         System.out.printf("Course Grade: %.2f\n", courseGrade);
+    }
+
+    // Validate project grade input and check if it's a number
+    public boolean validateProjectGrade(String gradeAsString) {
+        boolean isValid = true;
+        int i = 0;
+        int decimalPointCount = 0;
+
+        while(isValid && i < gradeAsString.length()) {
+            char c = gradeAsString.charAt(i);
+
+            if(!Character.isDigit(c) && c != '-' && c != '.') {
+                errorLabel.setText(gradeAsString + " is not a number. Please enter a number");
+                isValid = false;
+            } else if(c == '.') {
+
+                if(decimalPointCount >= 1){
+                    errorLabel.setText(gradeAsString + " has more than one decimal point. Please use one decimal point");
+                    isValid = false;
+                } else {
+                    decimalPointCount++;
+                }
+            }
+
+            i++;
+
+        }
+
+        return isValid;
+    }
+
+    // Validate project grade is within the inclusive range 0 - 100
+    // Calculate and return weighted projected grade
+    public double calculateProjectGrade(double projectGradeWeight){
+        double projectGrade = 0.0;
+        String gradeInput = projectGradeLabel.getText();
+        boolean validInput = validateProjectGrade(gradeInput);
+
+        if(validInput){
+            double projectGradeInput = Double.parseDouble(gradeInput);
+            if(projectGradeInput < 0 || projectGradeInput > 100){
+                errorLabel.setText("Project grade should be between 0 and 100.");
+            } else {
+                projectGrade = projectGradeInput;
+            }
+        }
+
+        return projectGrade * projectGradeWeight;
     }
 
 }
