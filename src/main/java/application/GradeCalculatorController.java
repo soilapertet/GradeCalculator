@@ -10,16 +10,19 @@ import javafx.scene.control.TextField;
 public class GradeCalculatorController {
 
     @FXML
-    private ChoiceBox<Integer> optionalCodingChallengesChoiceBox;
+    private Label courseGradeLabel;
 
     @FXML
     private TextField projectGradeLabel;
 
     @FXML
-    private Label errorLabel;
+    private ChoiceBox<Integer> requiredCodingChallengesChoiceBox;
 
     @FXML
-    private ChoiceBox<Integer> requiredCodingChallengesChoiceBox;
+    private ChoiceBox<Integer> optionalCodingChallengesChoiceBox;
+
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private Slider quizGradeSlider;
@@ -36,12 +39,16 @@ public class GradeCalculatorController {
         // Calculate weighted project grade
         double weightedProjectGrade = calculateProjectGrade(projectGradeWeight);
         courseGrade += weightedProjectGrade;
+
+        // Debugging purposes
         System.out.printf("Weighted Project Grade: %.2f Course Grade: %.2f\n", weightedProjectGrade, courseGrade);
 
         // Calculate weighted quiz grade
         double averageQuizGrade = quizGradeSlider.getValue();
         double weightedQuizGrade = (averageQuizGrade / 10) * 100 * quizGradeWeight;
         courseGrade += weightedQuizGrade;
+
+        // Debugging purposes
         System.out.printf("Weighted Quiz Grade: %.2f Course Grade: %.2f\n", weightedQuizGrade, courseGrade);
 
         // Calculate weighted coding challenges grade
@@ -50,10 +57,12 @@ public class GradeCalculatorController {
         int codingChallengesPassed = requiredCodingChallengesPassed + optionalCodingChallengesPassed;
         double weightedCodingChallengesGrade = codingChallengesPassed * weightOfOneCodingChallenge;
         courseGrade += weightedCodingChallengesGrade;
+
+        // Debugging purposes
         System.out.printf("Weighted Coding Challenges Grade: %.2f Course Grade: %.2f\n",weightedCodingChallengesGrade, courseGrade);
 
         // Output course grade
-        System.out.printf("Course Grade: %.2f\n", courseGrade);
+        courseGradeLabel.setText("Overall Course Grade: " + courseGrade + "%");
     }
 
     // Validate project grade input and check if it's a number
@@ -65,8 +74,8 @@ public class GradeCalculatorController {
         while(isValid && i < gradeAsString.length()) {
             char c = gradeAsString.charAt(i);
 
-            if(!Character.isDigit(c) && c != '-' && c != '.') {
-                errorLabel.setText(gradeAsString + " is not a number. Please enter a number");
+            if(!Character.isDigit(c) && c != '-' && c != '.' && c != '%') {
+                errorLabel.setText(gradeAsString + " is not a number. Please enter a number.");
                 isValid = false;
             } else if(c == '.') {
 
@@ -76,6 +85,9 @@ public class GradeCalculatorController {
                 } else {
                     decimalPointCount++;
                 }
+            } else if(c == '%'){
+                errorLabel.setText("Do not use " + c + " in project grade.");
+                isValid = false;
             }
 
             i++;
