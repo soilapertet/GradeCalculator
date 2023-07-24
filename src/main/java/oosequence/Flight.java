@@ -23,7 +23,8 @@ public class Flight {
     }
 
     public Flight(Flight flight){
-
+        departure = flight.departure;
+        arrival = flight.arrival;
     }
 
     // Define class methods
