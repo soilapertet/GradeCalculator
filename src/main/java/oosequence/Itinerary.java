@@ -9,7 +9,8 @@ public class Itinerary {
 
     // Define constructor
     public Itinerary(String name){
-
+        flights = new ArrayList<>();
+        this.name = name;
     }
 
     // Define getter and setter methods
