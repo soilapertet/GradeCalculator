@@ -29,6 +29,10 @@ public class Flight {
 
     // Define class methods
     long length(){
-        return 0;
+        if(departure == null || arrival == null){
+            return 0;
+        }
+
+        return ((arrival.getTime() - departure.getTime())/1000)/60;
     }
 }
