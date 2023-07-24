@@ -27,6 +27,22 @@ public class Flight {
         arrival = flight.arrival;
     }
 
+    // Initialise getter and setter methods
+    Date getArrival(){
+        return arrival;
+    }
+
+    Date getDeparture(){
+        return departure;
+    }
+
+    void setArrival(Date arrivalDate){
+        arrival = arrivalDate;
+    }
+    void setDeparture(Date departureDate){
+        departure = departureDate;
+    }
+
     // Define class methods
     long length(){
         if(departure == null || arrival == null){
