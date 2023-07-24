@@ -8,16 +8,16 @@ public class Flight {
     private Date departure;
 
     // Define class constructors
-    public Flight(Date departureDate, Date arrivalDate){
+    public Flight(Date departure, Date arrival){
         // Check if either date is null: Set according to arguments
-        if(departureDate == null || arrivalDate == null) {
-            departure = departureDate;
-            arrival = arrivalDate;
+        if(departure == null || arrival == null) {
+            this.departure = departure;
+            this.arrival = arrival;
         // Check if neither date is null: Check that departure date is before arrival date
-        } else if(departureDate != null && arrivalDate != null){
-            if(departureDate.before(arrivalDate)) {
-                departure = departureDate;
-                arrival = arrivalDate;
+        } else if(departure != null && arrival != null){
+            if(departure.before(arrival)) {
+                this.departure = departure;
+                this.arrival = arrival;
             }
         }
     }
