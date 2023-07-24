@@ -37,10 +37,23 @@ public class Flight {
     }
 
     void setArrival(Date arrivalDate){
-        arrival = arrivalDate;
+        if(departure != null){
+            if(arrivalDate.after(departure)) {
+                arrival = arrivalDate; // Set new arrival date if after departure date
+            }
+        } else {
+            arrival = arrivalDate;
+        }
+
     }
     void setDeparture(Date departureDate){
-        departure = departureDate;
+        if(arrival != null) {
+            if(departureDate.before(arrival)) {
+                departure = departureDate; // Set new departure date if before arrivalU date
+            }
+        } else {
+            departure = departureDate;
+        }
     }
 
     // Define class methods
