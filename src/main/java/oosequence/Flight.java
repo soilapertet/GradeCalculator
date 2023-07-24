@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Flight {
     // Define the instance variables
-    Date arrival;
-    Date departure;
+    private Date arrival;
+    private Date departure;
 
     // Define class constructors
     public Flight(Date departureDate, Date arrivalDate){
