@@ -16,7 +16,7 @@ public class Itinerary {
     }
 
     // Define getter and setter methods
-    String getName(){ return "";}
+    String getName(){ return name;}
     ArrayList<Flight> getFlights(){
         return flights;
     }
