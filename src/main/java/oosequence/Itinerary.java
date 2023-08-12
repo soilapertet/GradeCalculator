@@ -14,9 +14,7 @@ public class Itinerary {
     }
 
     // Define getter and setter methods
-    String getName(){
-        return "";
-    }
+    String getName(){ return "";}
     ArrayList<Flight> getFlights(){
         return flights;
     }
@@ -27,17 +25,25 @@ public class Itinerary {
             flights.add(flight);
         } else {
             boolean overlap = false;
-            boolean flightAdded = false;
-            int i = flights.size() - 1;
+            int n = flights.size();
+            int i = n - 1;
 
-            while(i >= 0 && !overlap && !flightAdded) {
-                Flight current = flights.get(i);
+            while(i >= 0 && !overlap) {
+                Flight prevFlight = flights.get(i);
 
-                if(flight.getDeparture().after(current.getDeparture()) && flight.getDeparture().after(current.getArrival())) {
-                    flights.add(flight);
-                    flightAdded = true;
-                } else if(flight.getDeparture().after(current.getDeparture()) && flight.getDeparture().before(current.getArrival())) {
+                if(flight.getDeparture().after(prevFlight.getArrival())) {
+                    if(!flights.contains(flight)) {
+                        flights.add(flight);
+                    }
+                } else if(flight.getDeparture().before(prevFlight.getDeparture()) && flight.getArrival().before(prevFlight.getDeparture())) {
+                    if(flights.contains(flight)){
+                        flights.remove(flight);
+                    }
+
+                    flights.add(i, flight);
+                } else {
                     overlap = true;
+                    flights.remove(flight);
                 }
 
                 i--;
