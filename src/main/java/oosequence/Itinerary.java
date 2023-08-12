@@ -1,6 +1,8 @@
 package oosequence;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Itinerary {
     // Define instance variables
@@ -52,6 +54,24 @@ public class Itinerary {
     }
 
     long getTotalLayover(){
-        return 0;
+        if(flights.size() == 1 || flights.size() == 0){
+            return 0;
+        }
+
+        long totalLayover = 0;
+
+        for(int i = 0; i < flights.size(); i++) {
+
+            if(i == flights.size() - 1){
+                return totalLayover;
+            }
+
+            Date arrivalTime = flights.get(i).getArrival();
+            Date departureTime = flights.get(i + 1).getDeparture();
+
+            totalLayover += TimeUnit.MILLISECONDS.toMinutes(departureTime.getTime() - arrivalTime.getTime());
+        }
+
+        return totalLayover;
     }
 }
