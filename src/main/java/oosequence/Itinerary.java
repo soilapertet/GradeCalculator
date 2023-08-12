@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Itinerary {
     // Define instance variables
-    private ArrayList<Flight> flights;
+    private ArrayList<TripComponent> flights;
     private String name;
 
     // Define constructor
@@ -17,12 +17,12 @@ public class Itinerary {
 
     // Define getter and setter methods
     String getName(){ return name;}
-    ArrayList<Flight> getFlights(){
+    ArrayList<TripComponent> getFlights(){
         return flights;
     }
 
     // Define class methods
-    void addFlight(Flight flight){
+    void addFlight(TripComponent flight){
         if(flights.isEmpty()) {
             flights.add(flight);
         } else {
@@ -31,13 +31,13 @@ public class Itinerary {
             int i = n - 1;
 
             while(i >= 0 && !overlap) {
-                Flight prevFlight = flights.get(i);
+                TripComponent prevFlight = flights.get(i);
 
-                if(flight.getDeparture().after(prevFlight.getArrival())) {
+                if(flight.getEnd().after(prevFlight.getStart())) {
                     if(!flights.contains(flight)) {
                         flights.add(flight);
                     }
-                } else if(flight.getDeparture().before(prevFlight.getDeparture()) && flight.getArrival().before(prevFlight.getDeparture())) {
+                } else if(flight.getEnd().before(prevFlight.getEnd()) && flight.getStart().before(prevFlight.getEnd())) {
                     if(flights.contains(flight)){
                         flights.remove(flight);
                     }
@@ -66,8 +66,8 @@ public class Itinerary {
                 return totalLayover;
             }
 
-            Date arrivalTime = flights.get(i).getArrival();
-            Date departureTime = flights.get(i + 1).getDeparture();
+            Date arrivalTime = flights.get(i).getStart();
+            Date departureTime = flights.get(i + 1).getEnd();
 
             totalLayover += TimeUnit.MILLISECONDS.toMinutes(departureTime.getTime() - arrivalTime.getTime());
         }
